@@ -1,0 +1,30 @@
+{"identifier": 'id',
+"itemsCommon":null,
+"items":[{
+	"data":{
+			 "name": "flare",
+			 "children": [
+					{
+			   			"name": "cluster1",
+			   			"children": [
+			    			{"name": "AgglomerativeCluster01", "size": 2000},
+			    			{"name": "AgglomerativeCluster02", "size": 2000}
+			      		]
+			      	},
+			      	{
+			     		"name": "cluster2","size": 4000
+			      	},
+			      	{
+			     		"name": "cluster3","size": 8000
+			      	},
+			      	{
+			     		"name": "cluster4","size": 10000
+			      	},
+			      	{
+			     		"name": "cluster5","size": 4000
+			      	}
+			   ]
+		}
+	}]
+}
+

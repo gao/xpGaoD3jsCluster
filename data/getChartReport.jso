@@ -2,37 +2,52 @@
 "itemsCommon":null,
 "items":[{
 	"data":{
-			 "name": "flare",
+			 "name": "User",
 			 "children": [
 					{
-			   			"id":1,"group":1,"name": "cluster1","size": 50
+			   			"id":1,"group":1,"name": "User1","value": 10
 			      	},
 			      	{
-			     		"id":2,"group":1,"name": "cluster2","size": 50
+			     		"id":2,"group":1,"name": "User2","value": 10
 			      	},
 			      	{
-			     		"id":3,"group":1,"name": "cluster3","size": 50
+			     		"id":3,"group":1,"name": "User3","value": 25
 			      	},
 			      	{
-			     		"id":4,"group":1,"name": "cluster4","size": 50
+			     		"id":4,"group":1,"name": "User4","value": 15
 			      	},
 			      	{
-			     		"id":5,"group":2,"name": "cluster5","size": 80
+			     		"id":5,"group":2,"name": "User5","value": 15
 			      	},
 			      	{
-			     		"id":6,"group":2,"name": "cluster6","size": 80
+			     		"id":6,"group":2,"name": "Userr6","value": 8
 			      	},
 			      	{
-			     		"id":7,"group":2,"name": "cluster7","size": 80
+			     		"id":7,"group":2,"name": "User7","value": 8
 			      	},
 			      	{
-			     		"id":8,"group":2,"name": "cluster8","size": 80
+			     		"id":8,"group":2,"name": "User8","value": 20
 			      	},
 			      	{
-			     		"id":9,"group":3,"name": "cluster9","size": 100
+			     		"id":9,"group":3,"name": "User9","value": 15
 			      	},
 			      	{
-			     		"id":10,"group":4,"name": "cluster10","size": 200
+			     		"id":10,"group":4,"name": "User10","value": 20
+			      	},
+			      	{
+			     		"id":11,"group":2,"name": "Userr11","value": 5
+			      	},
+			      	{
+			     		"id":12,"group":2,"name": "User12","value": 5
+			      	},
+			      	{
+			     		"id":13,"group":2,"name": "User13","value": 5
+			      	},
+			      	{
+			     		"id":14,"group":3,"name": "User14","value": 15
+			      	},
+			      	{
+			     		"id":15,"group":4,"name": "User15","value": 20
 			      	}
 			   ]
 		}

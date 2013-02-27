@@ -69,7 +69,7 @@ body {
   color: white;
   text-align: center;
 }
-.ClusterChart {
+.ForceChart {
   margin: 10px;
 }
 circle.node {
@@ -80,6 +80,28 @@ circle.node {
 line.link {
   fill: none;
   stroke: #9ecae1;
+  stroke-width: 1.5px;
+}
+.ClusterChart {
+  margin: 10px;
+}
+.ClusterChart path.arc {
+  fill: #fff;
+}
+.ClusterChart .node {
+  font-size: 12px;
+  pointer-events: none;
+}
+.ClusterChart ellipse.nodes {
+  stroke: #FB4100;
+  stroke-width: 1.5px;
+}
+.ClusterChart ellipse.origin {
+  stroke: #CCC;
+  stroke-width: 1px;
+}
+.ClusterChart .link {
+  stroke: #CCC;
   stroke-width: 1.5px;
 }
 

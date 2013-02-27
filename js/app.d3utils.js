@@ -90,6 +90,98 @@ var app = app || {};
 			    .text(function(d, i) { return d.data.name + ":" + d.data.value; });	
 
 		}else if(type == "clusterChart"){
+			var w = 1280,
+			    h = 800,
+			    rx = w / 2,
+			    ry = h / 2,
+			    m0,
+			    rotate = 0;
+			
+			var radialGradients=[{id:"radialGradientNodes",endColor:"#FCA000",startColor:"#F8F28A",r:8},
+							 {id:"radialGradientOrigin",endColor:"#006400",startColor:"#6DA202",r:12}];
+			
+			var cluster = d3.layout.cluster()
+			    .size([360, ry - 120])
+			    .sort(function(a, b){return d3.descending(a.value, b.value);});
+			
+			var svg = d3.select(template).append("div")
+			    .style("width", w + "px")
+    			.style("height", w + "px");
+			
+			var vis = svg.append("svg:svg")
+			    .attr("width", w)
+			    .attr("height", w)
+			    .append("svg:g")
+			    .attr("transform", "translate(" + rx + "," + ry + ")");
+			    
+			var defs = vis.append("defs");
+		
+			var radialGradient = defs.selectAll("radialGradient")
+				.data(radialGradients)
+			  .enter()
+				.append("radialGradient")
+				.attr("id",function(d){return d.id})
+				.attr("r","70%")
+				.attr("cx", "50%")
+			    .attr("cy", "50%")
+			    .attr("rx", "50%")
+			    .attr("ry", "50%");
+			
+			radialGradient.append("stop")
+				.attr("offset","0%")
+				.style("stop-color",function(d){return d.startColor})
+				.style("stop-opacity","1");
+			radialGradient.append("stop")
+				.attr("offset","100%")
+				.style("stop-color",function(d){return d.endColor})
+				.style("stop-opacity","1");
+
+			
+			function xs(d) { return (d.depth>0?(d.y-150+(d.value*5)):d.y) * Math.cos((d.x - 90) / 180 * Math.PI); }
+		 	function ys(d) { return (d.depth>0?(d.y-150+(d.value*5)):d.y) * Math.sin((d.x - 90) / 180 * Math.PI); }
+		 	
+			  var nodes = cluster.nodes(data);
+			
+			  var link = vis.selectAll("g.link")
+		          .data(nodes)
+		          .enter()
+		          .append("svg:g")
+		          .attr("class", "link")
+		          .append("line")
+		          .attr("x1", function(d) { return xs(d); })
+		          .attr("y1", function(d) { return ys(d); })
+		          .attr("x2", function(d) { return xs(nodes[0]); })
+		          .attr("y2", function(d) { return ys(nodes[0]); });
+			
+			  vis.selectAll(".dot")
+				  .data(nodes)
+				.enter().append("ellipse")
+				  .attr("class", function(d){ return (d.depth==0) ? "origin" : "nodes";})
+				  .attr("cx", function(d) { return xs(d); })
+				  .attr("cy", function(d) { return ys(d); })
+				  .attr("rx", function(d){ return (d.depth==0) ? 12 : 8; })
+				  .attr("ry", function(d){ return (d.depth==0) ? 12 : 8; })
+				  .attr("style",function(d){return (d.depth==0) ? "fill:url(#radialGradientOrigin)" : "fill:url(#radialGradientNodes)";})
+			  
+			  var node = vis.selectAll("g.node")
+			      .data(nodes)
+			    .enter().append("g")
+			      .attr("class", "node")
+			      .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + getNodeTranslate(d) + ")"; })
+			    .append("svg:text")
+			      .attr("dx", function(d) { return d.x < 180 ? 12 : -18; })
+			      .attr("dy", ".31em")
+			      .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+			      .attr("transform", function(d) { return d.x < 180 ? null : "rotate(180)"; })
+			      .text(function(d) { return d.name; });
+			
+			function getNodeTranslate(d){
+	        	var translate = (d.depth>0?(d.y-150+(d.value*5)):d.y);
+	        	
+	        	return translate;
+	        }
+
+		}else if(type == "forceChart"){
 			var w = 1000,
 			    h = 800,
 			    node,
@@ -98,21 +190,19 @@ var app = app || {};
 			
 			var force = d3.layout.force()
 			    .on("tick", tick)
-			    .charge(function(d) { return d._children ? -d.size / 10 : -30; })
-			    .linkDistance(function(d) {return d.target._children ? 50 : d.target.size; })
+			    .charge(function(d) { return d._children ? -d.value / 10 : -30; })
+			    .linkDistance(function(d) {return d.target._children ? 50 : d.target.value*10; })
 			    .size([w, h - 160]);
 			
 			var vis = d3.select(template).append("svg:svg")
 			    .attr("width", w)
 			    .attr("height", h);
 			
-			//d3.json("getChartReport.jso", function(json) {
 			  root = data;
 			  root.fixed = true;
 			  root.x = w / 2;
 			  root.y = h / 2 - 80;
 			  update();
-			//});
 			
 			function update() {
 			  var nodes = flatten(root),
@@ -158,7 +248,7 @@ var app = app || {};
 			      .call(force.drag);
 			
 			  node.append("title")
-      			  .text(function(d) { return d.name; });
+      			  .text(function(d) { return d.name + ": " + d.value; });
       
 			  // Exit any old nodes.
 			  node.exit().remove();

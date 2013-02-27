@@ -2,14 +2,26 @@
 	margin: 10px;
 }
 
-circle.node {
-  cursor: pointer;
-  stroke: #000;
-  stroke-width: .5px;
+.ClusterChart path.arc {
+  fill: #fff;
 }
 
-line.link {
-  fill: none;
-  stroke: #9ecae1;
+.ClusterChart .node {
+  font-size: 12px;
+  pointer-events: none;
+}
+
+.ClusterChart ellipse.nodes {
+  stroke: #FB4100;
   stroke-width: 1.5px;
+}
+
+.ClusterChart ellipse.origin {
+  stroke: #CCC;
+  stroke-width: 1px;
+}
+
+.ClusterChart .link {
+	stroke: #CCC;
+	stroke-width: 1.5px;
 }

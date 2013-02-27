@@ -90,7 +90,7 @@ var app = app || {};
 			    .text(function(d, i) { return d.data.name + ":" + d.data.value; });	
 
 		}else if(type == "clusterChart"){
-			var w = 1280,
+			var w = 1000,
 			    h = 800,
 			    node,
 			    link,
@@ -98,8 +98,8 @@ var app = app || {};
 			
 			var force = d3.layout.force()
 			    .on("tick", tick)
-			    .charge(function(d) { return d._children ? -d.size / 100 : -30; })
-			    .linkDistance(function(d) { return d.target._children ? 80 : 30; })
+			    .charge(function(d) { return d._children ? -d.size / 10 : -30; })
+			    .linkDistance(function(d) {return d.target._children ? 50 : d.target.size; })
 			    .size([w, h - 160]);
 			
 			var vis = d3.select(template).append("svg:svg")
@@ -143,20 +143,23 @@ var app = app || {};
 			  node = vis.selectAll("circle.node")
 			      .data(nodes, function(d) { return d.id; })
 			      .style("fill", color);
-			
+			      
 			  node.transition()
-			      .attr("r", function(d) { return d.children ? 4.5 : Math.sqrt(d.size) / 10; });
+      			  .attr("r", function(d) { return d.children ? 4.5 : 10; });
 			
 			  // Enter any new nodes.
 			  node.enter().append("svg:circle")
 			      .attr("class", "node")
 			      .attr("cx", function(d) { return d.x; })
 			      .attr("cy", function(d) { return d.y; })
-			      .attr("r", function(d) { return d.children ? 4.5 : Math.sqrt(d.size) / 10; })
+			      .attr("r", function(d) { return d.children ? 4.5 : 10; })
 			      .style("fill", color)
 			      .on("click", click)
 			      .call(force.drag);
 			
+			  node.append("title")
+      			  .text(function(d) { return d.name; });
+      
 			  // Exit any old nodes.
 			  node.exit().remove();
 			}

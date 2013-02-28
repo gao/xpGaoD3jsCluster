@@ -90,7 +90,7 @@ var app = app || {};
 			    .text(function(d, i) { return d.data.name + ":" + d.data.value; });	
 
 		}else if(type == "clusterChart"){
-			var w = 1280,
+			var w = 1000,
 			    h = 800,
 			    rx = w / 2,
 			    ry = h / 2,

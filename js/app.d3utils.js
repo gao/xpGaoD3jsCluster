@@ -102,7 +102,7 @@ var app = app || {};
 			
 			var cluster = d3.layout.cluster()
 			    .size([360, ry - 120])
-			    .sort(function(a, b){return d3.descending(a.value, b.value);});
+			    .sort(function(a, b){return d3.descending(a.weight, b.weight);});
 			
 			var svg = d3.select(template).append("div")
 			    .style("width", w + "px")
@@ -137,8 +137,8 @@ var app = app || {};
 				.style("stop-opacity","1");
 
 			
-			function xs(d) { return (d.depth>0?(d.y-150+(d.value*5)):d.y) * Math.cos((d.x - 90) / 180 * Math.PI); }
-		 	function ys(d) { return (d.depth>0?(d.y-150+(d.value*5)):d.y) * Math.sin((d.x - 90) / 180 * Math.PI); }
+			function xs(d) { return (d.depth>0?(d.y-150+(d.weight*5)):d.y) * Math.cos((d.x - 90) / 180 * Math.PI); }
+		 	function ys(d) { return (d.depth>0?(d.y-150+(d.weight*5)):d.y) * Math.sin((d.x - 90) / 180 * Math.PI); }
 		 	
 			  var nodes = cluster.nodes(data);
 			
@@ -176,12 +176,13 @@ var app = app || {};
 			      .text(function(d) { return d.name; });
 			
 			function getNodeTranslate(d){
-	        	var translate = (d.depth>0?(d.y-150+(d.value*5)):d.y);
+	        	var translate = (d.depth>0?(d.y-150+(d.weight*5)):d.y);
 	        	
 	        	return translate;
 	        }
 
 		}else if(type == "forceChart"){
+			
 			var w = 1000,
 			    h = 800,
 			    node,
@@ -190,8 +191,8 @@ var app = app || {};
 			
 			var force = d3.layout.force()
 			    .on("tick", tick)
-			    .charge(function(d) { return d._children ? -d.value / 10 : -30; })
-			    .linkDistance(function(d) {return d.target._children ? 50 : d.target.value*10; })
+			    .charge(function(d) { return d._children ? -d.weightVal / 10 : -30; })
+			    .linkDistance(function(d) {return d.target._children ? 50 : d.target.weightVal*30; })
 			    .size([w, h - 160]);
 			
 			var vis = d3.select(template).append("svg:svg")
@@ -248,7 +249,7 @@ var app = app || {};
 			      .call(force.drag);
 			
 			  node.append("title")
-      			  .text(function(d) { return d.name + ": " + d.value; });
+      			  .text(function(d) { return d.name + ": " + d.weightVal; });
       
 			  // Exit any old nodes.
 			  node.exit().remove();

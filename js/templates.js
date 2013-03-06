@@ -7,16 +7,7 @@ Handlebars.templates['tmpl-ClusterChart'] = Handlebars.template(function (Handle
   
 
 
-  return "<div class=\"ClusterChart\"></div>";}
-);
-
-// template --- tmpl-ClusterChart-Summary ---
-Handlebars.templates['tmpl-ClusterChart-Summary'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  helpers = helpers || Handlebars.helpers;
-  
-
-
-  return "<div class=\"ClusterChartSummary\"></div>";}
+  return "<div class=\"ClusterChart\">\n		<div class=\"ClusterChartSummary\"></div>\n	</div>";}
 );
 
 // template --- tmpl-ForceChart ---
@@ -25,16 +16,7 @@ Handlebars.templates['tmpl-ForceChart'] = Handlebars.template(function (Handleba
   
 
 
-  return "<div class=\"ForceChart\"></div>";}
-);
-
-// template --- tmpl-ForceChart-Summary ---
-Handlebars.templates['tmpl-ForceChart-Summary'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  helpers = helpers || Handlebars.helpers;
-  
-
-
-  return "<div class=\"ForceChartSummary\"></div>";}
+  return "<div class=\"ForceChart\">\n		<div class=\"ForceChartSummary\"></div>\n	</div>";}
 );
 
 // template --- tmpl-MainScreen ---

@@ -2,7 +2,6 @@
 
     (function ($) {
         brite.registerView("Welcome",  {
-        	loadTmpl : true,
 			emptyParent : true,
 			parent:".MainScreen-main"
 		}, {
